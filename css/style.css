@@ -1,0 +1,432 @@
+:root {
+    --bg-color: #0a0a0a;
+    --text-color: #ffffff;
+    --accent-color: #00ff88;
+    --secondary-color: #888888;
+    --font-main: 'Outfit', sans-serif;
+    --font-body: 'Inter', sans-serif;
+    --card-width: 300px;
+    --card-height: 450px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: var(--font-body);
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3 {
+    font-family: var(--font-main);
+    font-weight: 700;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+a:hover {
+    color: var(--accent-color);
+}
+
+/* Navigation */
+.fixed-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 20px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 1000;
+    mix-blend-mode: difference;
+}
+
+.logo {
+    font-family: var(--font-main);
+    font-weight: 700;
+    font-size: 1.5rem;
+}
+
+/* Sections Generic */
+.section {
+    min-height: 100vh;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+    overflow: hidden;
+}
+
+.container {
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    position: relative;
+}
+
+.section-title {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+    text-align: center;
+    opacity: 0;
+    transform: translateY(30px);
+}
+
+.section-subtitle {
+    font-size: 1.2rem;
+    color: var(--secondary-color);
+    text-align: center;
+    margin-bottom: 4rem;
+    opacity: 0;
+    transform: translateY(30px);
+}
+
+/* SECTION 1: Intro */
+.intro-section {
+    padding: 0;
+}
+
+.bg-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 0;
+}
+
+.content-wrapper {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+}
+
+.hero-title {
+    font-size: 6vw;
+    line-height: 1.1;
+    text-transform: uppercase;
+    letter-spacing: -0.02em;
+}
+
+.hero-title .line {
+    display: block;
+    opacity: 0;
+    transform: translateY(50px);
+}
+
+.scroll-indicator {
+    margin-top: 2rem;
+    font-size: 1rem;
+    opacity: 0;
+    animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+
+    0%,
+    20%,
+    50%,
+    80%,
+    100% {
+        transform: translateY(0);
+    }
+
+    40% {
+        transform: translateY(-10px);
+    }
+
+    60% {
+        transform: translateY(-5px);
+    }
+}
+
+/* SECTION 2: About */
+.about-section {
+    background-color: #111;
+}
+
+.about-content {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.large-text {
+    font-size: 3rem;
+    line-height: 1.4;
+    margin-bottom: 2rem;
+    font-weight: 300;
+}
+
+.medium-text {
+    font-size: 2rem;
+    color: var(--secondary-color);
+}
+
+.highlight {
+    color: var(--accent-color);
+    font-weight: 600;
+}
+
+/* SECTION 3, 4, 5: Card Decks */
+.deck-section {
+    perspective: 1000px;
+}
+
+.card-deck {
+    position: relative;
+    height: 600px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card {
+    position: absolute;
+    width: var(--card-width);
+    height: var(--card-height);
+    background-color: #333;
+    background-size: cover;
+    background-position: center;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    transform-origin: center bottom;
+    transition: transform 0.4s ease, z-index 0s;
+    cursor: pointer;
+    overflow: hidden;
+}
+
+/* Video Card Specifics */
+.video-card video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.6;
+    transition: opacity 0.3s;
+}
+
+.video-card:hover video {
+    opacity: 1;
+}
+
+/* Image Card Specifics */
+.image-card {
+    background-size: cover;
+    background-position: center;
+}
+
+.card-label {
+    position: absolute;
+    bottom: 20px;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    font-weight: 600;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+    transform: translateY(100%);
+    transition: transform 0.3s;
+    color: #fff;
+}
+
+.card:hover .card-label {
+    transform: translateY(0);
+}
+
+/* SECTION 5: Metaverse Specifics */
+.metaverse-section {
+    background-color: #f0f0f0;
+    color: #111;
+}
+
+/* SECTION 6: Skills */
+.skills-section {
+    background-color: #050505;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.skills-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto 60px auto;
+}
+
+.skill-card {
+    position: relative;
+    height: 300px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.3s, border-color 0.3s;
+}
+
+.skill-card:hover {
+    border-color: var(--accent-color);
+    transform: translateY(-5px);
+}
+
+.skill-front,
+.skill-back {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+    text-align: center;
+    transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.skill-front {
+    z-index: 2;
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.05), transparent);
+}
+
+.skill-front h3 {
+    font-size: 2.5rem;
+    color: #fff;
+}
+
+.skill-back {
+    z-index: 1;
+    background: linear-gradient(135deg, #004d29, #000000);
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+.skill-card:hover .skill-front {
+    opacity: 0;
+    transform: translateY(-20px);
+}
+
+.skill-card:hover .skill-back {
+    opacity: 1;
+    transform: translateY(0);
+    z-index: 3;
+}
+
+.skill-back p {
+    font-size: 1.2rem;
+    line-height: 1.6;
+    color: #e0e0e0;
+}
+
+.main-footer {
+    text-align: center;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: 40px;
+    color: var(--secondary-color);
+    width: 100%;
+}
+
+/* Modal */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    z-index: 2000;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    position: relative;
+    width: 80%;
+    max-width: 1000px;
+    aspect-ratio: 16/9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-video {
+    width: 100%;
+    height: 100%;
+    background: #000;
+}
+
+.modal-image {
+    max-width: 100%;
+    max-height: 90vh;
+    object-fit: contain;
+}
+
+.close-modal {
+    position: absolute;
+    top: -40px;
+    right: -40px;
+    color: #fff;
+    font-size: 3rem;
+    cursor: pointer;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .section-title {
+        font-size: 2.5rem;
+    }
+
+    .hero-title {
+        font-size: 12vw;
+    }
+
+    .card-deck {
+        flex-direction: column;
+        height: auto;
+        gap: 20px;
+    }
+
+    .card {
+        position: relative;
+        transform: none !important;
+        width: 100%;
+        max-width: 350px;
+        height: 500px;
+        margin-bottom: 20px;
+    }
+
+    .skills-container {
+        grid-template-columns: 1fr;
+    }
+}
