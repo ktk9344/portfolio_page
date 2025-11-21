@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,213 +7,97 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Outfit:wght@300;500;700&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Outfit:wght@300;500;700&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollToPlugin.min.js"></script>
+    <script src="https://unpkg.com/three@0.128.0/build/three.min.js"></script>
+    <script src="https://unpkg.com/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
 </head>
-
 <body>
-
-    <!-- Navigation -->
     <nav class="fixed-nav">
         <div class="logo">KTK</div>
-        <div class="menu-toggle">
-            <span></span>
-            <span></span>
-        </div>
+        <div class="menu-toggle"><span></span><span></span></div>
     </nav>
-
     <main>
-        <!-- SECTION 1: Intro (Video Hero) -->
         <section id="intro" class="section intro-section">
-            <video autoplay muted loop playsinline class="bg-video">
-                <source src="assets/video/title_01.mp4" type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
+            <video autoplay muted loop playsinline class="bg-video"><source src="assets/video/title_01.mp4" type="video/mp4"></video>
             <div class="overlay"></div>
             <div class="content-wrapper">
-                <h1 class="hero-title">
-                    <span class="line">3D Designer</span>
-                    <span class="line">Kim Tae-kang</span>
-                </h1>
+                <h1 class="hero-title"><span class="line">3D Designer</span><span class="line">Kim Tae-kang</span></h1>
                 <p class="scroll-indicator">Scroll to Explore</p>
             </div>
         </section>
-
-        <!-- SECTION 2: About (Fluid Motion) -->
-  <section id="about" class="section about-section">
+        <section id="about" class="section about-section">
             <div class="container">
                 <div class="about-content">
                     <h2 class="section-title" data-speed="0.5">Creative Visionary</h2>
-                    <p class="large-text" data-speed="0.8">
-                        With over <span class="highlight">10 Years of Experience</span>,<br>
-                        I bridge the gap between art and technology.
-                    </p>
-                    <p class="medium-text" data-speed="1.0">
-                        Specializing in <span class="highlight">Optimization</span><br>
-                        and <span class="highlight">Interactive Experiences</span>.
-                    </p>
+                    <p class="large-text" data-speed="0.8">With over <span class="highlight">10 Years of Experience</span>,<br>I bridge the gap between art and technology.</p>
+                    <p class="medium-text" data-speed="1.0">Specializing in <span class="highlight">Optimization</span><br>and <span class="highlight">Interactive Experiences</span>.</p>
                 </div>
             </div>
         </section>
-
-        <!-- SECTION 3: Game Graphics (Image Card Deck) -->
-        <section id="game-graphics" class="section deck-section dark-theme">
+        <section id="game-graphics" class="section deck-section">
             <div class="container">
                 <h2 class="section-title">Game Graphics</h2>
                 <p class="section-subtitle">Hand-painted Texture Character</p>
                 <div class="card-deck" id="game-deck">
-                    <div class="card image-card" data-image="assets/images/game/DragonEncounter_01.jpg"
-                        style="--i:0; background-image: url('assets/images/game/DragonEncounter_01.jpg')"></div>
-                    <div class="card image-card" data-image="assets/images/game/DragonEncounter_02.jpg"
-                        style="--i:1; background-image: url('assets/images/game/DragonEncounter_02.jpg')"></div>
-                    <div class="card image-card" data-image="assets/images/game/adelin.jpg"
-                        style="--i:2; background-image: url('assets/images/game/adelin.jpg')"></div>
-                    <div class="card image-card" data-image="assets/images/game/chacha.jpg"
-                        style="--i:3; background-image: url('assets/images/game/chacha.jpg')"></div>
-                    <div class="card image-card" data-image="assets/images/game/delia.jpg"
-                        style="--i:4; background-image: url('assets/images/game/delia.jpg')"></div>
-                    <div class="card image-card" data-image="assets/images/game/gald.jpg"
-                        style="--i:5; background-image: url('assets/images/game/gald.jpg')"></div>
+                    <div class="card image-card" data-image="assets/images/game/DragonEncounter_01.jpg" style="--i:0; background-image: url('assets/images/game/DragonEncounter_01.jpg')"></div>
+                    <div class="card image-card" data-image="assets/images/game/DragonEncounter_02.jpg" style="--i:1; background-image: url('assets/images/game/DragonEncounter_02.jpg')"></div>
+                    <div class="card image-card" data-image="assets/images/game/adelin.jpg" style="--i:2; background-image: url('assets/images/game/adelin.jpg')"></div>
+                    <div class="card image-card" data-image="assets/images/game/chacha.jpg" style="--i:3; background-image: url('assets/images/game/chacha.jpg')"></div>
+                    <div class="card image-card" data-image="assets/images/game/delia.jpg" style="--i:4; background-image: url('assets/images/game/delia.jpg')"></div>
+                    <div class="card image-card" data-image="assets/images/game/gald.jpg" style="--i:5; background-image: url('assets/images/game/gald.jpg')"></div>
                 </div>
             </div>
         </section>
-
-        <!-- SECTION 4: AR & Interactive (Video Card Deck) -->
-        <section id="ar-interactive" class="section deck-section ar-section">
+        <section id="ar-interactive" class="section deck-section">
             <div class="container">
                 <h2 class="section-title">AR & Interactive</h2>
-                <p class="section-subtitle">AR Filters & Facial Tracking Projects (LG U+, Bound)</p>
+                <p class="section-subtitle">AR Filters & Facial Tracking Projects</p>
                 <div class="card-deck" id="ar-deck">
-                    <div class="card video-card" data-video="assets/ar_videos/ar_bts_jimin.mp4" style="--i:0;">
-                        <video muted loop playsinline src="assets/ar_videos/ar_bts_jimin.mp4"></video>
-                        <div class="card-label">BTS Jimin</div>
-                    </div>
-                    <div class="card video-card" data-video="assets/ar_videos/ar_disney_ariel.mp4" style="--i:1;">
-                        <video muted loop playsinline src="assets/ar_videos/ar_disney_ariel.mp4"></video>
-                        <div class="card-label">Disney Ariel</div>
-                    </div>
-                    <div class="card video-card" data-video="assets/ar_videos/ar_hamburger.mp4" style="--i:2;">
-                        <video muted loop playsinline src="assets/ar_videos/ar_hamburger.mp4"></video>
-                        <div class="card-label">Hamburger</div>
-                    </div>
-                    <div class="card video-card" data-video="assets/ar_videos/ar_buddha.mp4" style="--i:3;">
-                        <video muted loop playsinline src="assets/ar_videos/ar_buddha.mp4"></video>
-                        <div class="card-label">Buddha</div>
-                    </div>
-                    <div class="card video-card" data-video="assets/ar_videos/ar_disney_rapunzel.mp4" style="--i:4;">
-                        <video muted loop playsinline src="assets/ar_videos/ar_disney_rapunzel.mp4"></video>
-                        <div class="card-label">Rapunzel</div>
-                    </div>
-                    <div class="card video-card" data-video="assets/ar_videos/ar_zombie.mp4" style="--i:5;">
-                        <video muted loop playsinline src="assets/ar_videos/ar_zombie.mp4"></video>
-                        <div class="card-label">Zombie</div>
-                    </div>
+                    <div class="card video-card" data-video="assets/ar_videos/ar_bts_jimin.mp4" style="--i:0;"><video autoplay muted loop playsinline src="assets/ar_videos/ar_bts_jimin.mp4"></video><div class="card-label">BTS Jimin</div></div>
+                    <div class="card video-card" data-video="assets/ar_videos/ar_disney_ariel.mp4" style="--i:1;"><video autoplay muted loop playsinline src="assets/ar_videos/ar_disney_ariel.mp4"></video><div class="card-label">Disney Ariel</div></div>
+                    <div class="card video-card" data-video="assets/ar_videos/ar_hamburger.mp4" style="--i:2;"><video autoplay muted loop playsinline src="assets/ar_videos/ar_hamburger.mp4"></video><div class="card-label">Hamburger</div></div>
+                    <div class="card video-card" data-video="assets/ar_videos/ar_buddha.mp4" style="--i:3;"><video autoplay muted loop playsinline src="assets/ar_videos/ar_buddha.mp4"></video><div class="card-label">Buddha</div></div>
+                    <div class="card video-card" data-video="assets/ar_videos/ar_disney_rapunzel.mp4" style="--i:4;"><video autoplay muted loop playsinline src="assets/ar_videos/ar_disney_rapunzel.mp4"></video><div class="card-label">Rapunzel</div></div>
+                    <div class="card video-card" data-video="assets/ar_videos/ar_zombie.mp4" style="--i:5;"><video autoplay muted loop playsinline src="assets/ar_videos/ar_zombie.mp4"></video><div class="card-label">Zombie</div></div>
                 </div>
             </div>
         </section>
-
-        <!-- SECTION 5: Metaverse World (Card Deck) -->
-        <section id="metaverse" class="section deck-section light-theme">
+        <section id="metaverse" class="section deck-section metaverse-section">
             <div class="container">
-                <h2 class="section-title">Metaverse World Character</h2>
+                <h2 class="section-title">Metaverse World</h2>
                 <p class="section-subtitle">Avatar System & Low-Poly Optimization</p>
                 <div class="card-deck" id="meta-deck">
-                    <!-- Video 1: Intro -->
-                    <div class="card video-card" data-video="assets/video/lingo_city_intro.mp4" style="--i:0;">
-                        <video muted loop playsinline src="assets/video/lingo_city_intro.mp4"></video>
-                        <div class="card-label">Lingo City Intro</div>
-                    </div>
-                    <!-- Image 1 -->
-                    <div class="card image-card" data-image="assets/images/lingo_01.jpg"
-                        style="--i:1; background-image: url('assets/images/lingo_01.jpg')">
-                        <div class="card-label">Lingo City</div>
-                    </div>
-                    <!-- Image 2 -->
-                    <div class="card image-card" data-image="assets/images/lingo_02.jpg"
-                        style="--i:2; background-image: url('assets/images/lingo_02.jpg')">
-                        <div class="card-label">Character 01</div>
-                    </div>
-                    <!-- Image 3 -->
-                    <div class="card image-card" data-image="assets/images/lingo_03.jpg"
-                        style="--i:3; background-image: url('assets/images/lingo_03.jpg')">
-                        <div class="card-label">Character 02</div>
-                    </div>
-                    <!-- Video 2: Ending -->
-                    <div class="card video-card" data-video="assets/video/lingo_city_ending.mp4" style="--i:4;">
-                        <video muted loop playsinline src="assets/video/lingo_city_ending.mp4"></video>
-                        <div class="card-label">Lingo City Ending</div>
-                    </div>
+                    <div class="card video-card" data-video="assets/video/lingo_city_intro.mp4" style="--i:0;"><video autoplay muted loop playsinline src="assets/video/lingo_city_intro.mp4"></video><div class="card-label">Lingo City Intro</div></div>
+                    <div class="card image-card" data-image="assets/images/lingo_01.jpg" style="--i:1; background-image: url('assets/images/lingo_01.jpg')"><div class="card-label">Lingo City</div></div>
+                    <div class="card image-card" data-image="assets/images/lingo_02.jpg" style="--i:2; background-image: url('assets/images/lingo_02.jpg')"><div class="card-label">Character 01</div></div>
+                    <div class="card image-card" data-image="assets/images/lingo_03.jpg" style="--i:3; background-image: url('assets/images/lingo_03.jpg')"><div class="card-label">Character 02</div></div>
+                    <div class="card video-card" data-video="assets/video/lingo_city_ending.mp4" style="--i:4;"><video autoplay muted loop playsinline src="assets/video/lingo_city_ending.mp4"></video><div class="card-label">Lingo City Ending</div></div>
                 </div>
             </div>
         </section>
-
-        <!-- SECTION 6: Skills -->
         <section id="skills" class="section skills-section">
-            <div class="container">
+            <div id="vr-background"></div>
+            <div class="container" style="pointer-events: none;">
                 <h2 class="section-title">Skills & Tools</h2>
                 <div class="skills-container">
-                    <!-- Skill 1: Unity -->
-                    <div class="skill-card">
-                        <div class="skill-front">
-                            <h3>Unity</h3>
-                        </div>
-                        <div class="skill-back">
-                            <p>Character settings and prefab creation<br>Game scene composition<br>Resource optimization
-                            </p>
-                        </div>
-                    </div>
-                    <!-- Skill 2: Unreal 5 -->
-                    <div class="skill-card">
-                        <div class="skill-front">
-                            <h3>Unreal 5</h3>
-                        </div>
-                        <div class="skill-back">
-                            <p>Set up 3D Resources and Blueprint Work<br>Organize Movie Scenes</p>
-                        </div>
-                    </div>
-                    <!-- Skill 3: Main Tools -->
-                    <div class="skill-card">
-                        <div class="skill-front">
-                            <h3>Main Tools</h3>
-                        </div>
-                        <div class="skill-back">
-                            <p>3D Max, Photoshop<br>After Effects<br>Material Painting</p>
-                        </div>
-                    </div>
-                    <!-- Skill 4: AI Tools -->
-                    <div class="skill-card">
-                        <div class="skill-front">
-                            <h3>AI Tools</h3>
-                        </div>
-                        <div class="skill-back">
-                            <p>Meshy AI, Kling<br>Midjourney, etc..</p>
-                        </div>
-                    </div>
+                    <div class="skill-card"><div class="skill-front"><h3>Unity</h3></div><div class="skill-back"><p>Character settings<br>Prefab creation<br>Resource optimization</p></div></div>
+                    <div class="skill-card"><div class="skill-front"><h3>Unreal 5</h3></div><div class="skill-back"><p>3D Resources Setup<br>Blueprint Work<br>Cinematic Scenes</p></div></div>
+                    <div class="skill-card"><div class="skill-front"><h3>Main Tools</h3></div><div class="skill-back"><p>3D Max, Photoshop<br>After Effects<br>Material Painting</p></div></div>
+                    <div class="skill-card"><div class="skill-front"><h3>AI Tools</h3></div><div class="skill-back"><p>Meshy AI, Kling<br>Midjourney<br>Workflow Optimization</p></div></div>
                 </div>
-
-                <footer class="main-footer">
-                    <p>Contact Information: <a href="mailto:xorkd8519@naver.com">xorkd8519@naver.com</a></p>
-                    <p><a href="https://blog.naver.com/xorkd8519" target="_blank">Naver Blog Address</a></p>
+                <footer class="main-footer" style="pointer-events: auto;">
+                    <p>Contact: <a href="mailto:xorkd8519@naver.com">xorkd8519@naver.com</a></p>
+                    <p><a href="https://blog.naver.com/xorkd8519" target="_blank">Naver Blog</a></p>
                 </footer>
+            </div>
         </section>
     </main>
-
-    <!-- Video Modal -->
-<div id="media-modal" class="modal">
+    <div id="media-modal" class="modal">
         <span class="close-modal">&times;</span>
-        
-        <div class="modal-scroll-area">
-            <div class="modal-content">
-                <img class="modal-image" src="" alt="Portfolio Image">
-                <video controls class="modal-video"></video>
-            </div>
-        </div>
+        <div class="modal-scroll-area"><div class="modal-content"><img class="modal-image" src=""><video controls class="modal-video"></video></div></div>
     </div>
-
     <script src="js/script.js"></script>
 </body>
 </html>

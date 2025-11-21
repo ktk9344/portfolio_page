@@ -6,373 +6,112 @@
     --text-color: #ffffff;
     --accent-color: #00ff88;
     --secondary-color: #888888;
-    --tech-blue: #4facfe; /* 스킬 섹션용 포인트 컬러 */
+    --tech-blue: #4facfe; 
     --font-main: 'Outfit', 'Noto Sans KR', sans-serif;
     --font-body: 'Inter', 'Noto Sans KR', sans-serif;
-    
-    /* [PC 기준] 카드 크기 */
     --card-width: 300px;
     --card-height: 450px;
 }
-
-/* [모바일 기준] 카드 크기 (768px 이하) */
-@media (max-width: 768px) {
-    :root {
-        --card-width: 160px;  
-        --card-height: 240px;
-    }
-}
-
+@media (max-width: 768px) { :root { --card-width: 160px; --card-height: 240px; } }
 * { margin: 0; padding: 0; box-sizing: border-box; }
-
-body {
-    background-color: var(--bg-color);
-    color: var(--text-color);
-    font-family: var(--font-body);
-    overflow-x: hidden;
-    -webkit-font-smoothing: antialiased;
-}
-
+body { background-color: var(--bg-color); color: var(--text-color); font-family: var(--font-body); overflow-x: hidden; -webkit-font-smoothing: antialiased; }
 h1, h2, h3 { font-family: var(--font-main); font-weight: 700; }
-
-a {
-    color: inherit;
-    text-decoration: none;
-    transition: color 0.3s;
-}
+a { color: inherit; text-decoration: none; transition: color 0.3s; }
 a:hover { color: var(--accent-color); }
 
-/* =========================================
-   2. Navigation & Generic Layout
-   ========================================= */
-.fixed-nav {
-    position: fixed; top: 0; left: 0; width: 100%;
-    padding: 20px 40px;
-    display: flex; justify-content: space-between; align-items: center;
-    z-index: 1000; mix-blend-mode: difference;
-}
+/* Nav & Generic */
+.fixed-nav { position: fixed; top: 0; left: 0; width: 100%; padding: 20px 40px; display: flex; justify-content: space-between; align-items: center; z-index: 1000; mix-blend-mode: difference; }
 .logo { font-weight: 700; font-size: 1.5rem; }
+.section { min-height: 100vh; position: relative; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 40px 20px; overflow: hidden; }
+.container { width: 100%; max-width: 1400px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; position: relative; }
+.section-title { font-size: 3rem; margin-bottom: 1rem; text-align: center; opacity: 0; transform: translateY(30px); }
+.section-subtitle { font-size: 1.2rem; color: var(--secondary-color); text-align: center; margin-bottom: 3rem; opacity: 0; transform: translateY(30px); }
 
-.section {
-    min-height: 100vh;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 40px 20px;
-    overflow: hidden;
-}
-
-.container {
-    width: 100%;
-    max-width: 1400px;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    position: relative;
-}
-
-.section-title {
-    font-size: 3rem; margin-bottom: 1rem; text-align: center;
-    opacity: 0; transform: translateY(30px);
-}
-.section-subtitle {
-    font-size: 1.2rem; color: var(--secondary-color);
-    text-align: center; margin-bottom: 3rem;
-    opacity: 0; transform: translateY(30px);
-}
-
-/* =========================================
-   3. Intro Section
-   ========================================= */
+/* Intro & About */
 .intro-section { padding: 0; }
 .bg-video { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: -1; }
 .overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.4); z-index: 0; }
-
 .content-wrapper { position: relative; z-index: 2; text-align: center; width: 100%; }
 .hero-title { font-size: 8vw; line-height: 1.1; text-transform: uppercase; color: #fff; }
 .hero-title .line { display: block; opacity: 0; transform: translateY(50px); }
 .scroll-indicator { margin-top: 2rem; opacity: 0; color: #fff; animation: bounce 2s infinite; }
-
-@keyframes bounce { 
-    0%, 100% { transform: translateY(0); } 
-    50% { transform: translateY(-10px); } 
-}
-
-/* =========================================
-   4. About Section
-   ========================================= */
+@keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
 .about-section { background-color: #111; }
 .about-content { text-align: center; max-width: 800px; }
 .large-text { font-size: 2.5rem; line-height: 1.4; margin-bottom: 2rem; word-break: keep-all; }
 .medium-text { font-size: 1.5rem; color: var(--secondary-color); word-break: keep-all; }
 .highlight { color: var(--accent-color); font-weight: 600; }
 
-/* =========================================
-   5. Card Decks (Game, AR, Metaverse)
-   ========================================= */
-.deck-section {
-    perspective: 1000px;
-    width: 100%;
-}
-
-.card-deck {
-    position: relative;
-    width: var(--card-width);
-    height: var(--card-height);
-    margin-top: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.card {
-    position: absolute;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    background-color: #333;
-    background-size: cover;
-    background-position: center;
-    border-radius: 15px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-    transform-origin: center bottom; 
-    cursor: pointer;
-    will-change: transform;
-}
-
+/* Decks */
+.deck-section { perspective: 1000px; width: 100%; }
+.card-deck { position: relative; width: var(--card-width); height: var(--card-height); margin-top: 20px; display: flex; justify-content: center; align-items: center; }
+.card { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: #333; background-size: cover; background-position: center; border-radius: 15px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); transform-origin: center bottom; cursor: pointer; will-change: transform; }
 .video-card video { width: 100%; height: 100%; object-fit: cover; opacity: 0.8; pointer-events: none; }
-.card-label {
-    position: absolute; bottom: 15px; width: 100%; text-align: center;
-    font-weight: 600; color: #fff; text-shadow: 0 2px 4px rgba(0,0,0,0.8);
-}
-
+.card-label { position: absolute; bottom: 15px; width: 100%; text-align: center; font-weight: 600; color: #fff; text-shadow: 0 2px 4px rgba(0,0,0,0.8); }
 .metaverse-section { background-color: #f0f0f0; color: #111; }
 
 /* =========================================
-   SECTION 6: Skills (Blue Tech Style)
+   SECTION 6: Skills (수정됨)
    ========================================= */
 .skills-section {
-    background-color: #050505;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    /* 하단 여백 추가하여 푸터가 잘리지 않도록 함 */
-    padding-bottom: 60px; 
+    position: relative;
+    /* 높이를 충분히 주어 스크롤 트리거가 잘 작동하게 함 */
+    min-height: 120vh; 
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    padding-bottom: 100px;
+    background: transparent;
+    overflow: hidden;
 }
 
+#vr-background {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    z-index: 0; pointer-events: auto; cursor: grab;
+}
+#vr-background:active { cursor: grabbing; }
+
 .skills-container {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 30px;
-    width: 100%;
-    max-width: 1200px;
-    margin: 0 auto 60px auto;
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;
+    width: 100%; max-width: 1000px; margin-bottom: 60px;
+    z-index: 10; /* 배경보다 확실히 위에 */
+    position: relative;
+    pointer-events: none; 
 }
 
 .skill-card {
-    position: relative;
-    height: 300px;
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 20px;
-    overflow: hidden;
-    cursor: pointer;
-    transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+    position: relative; height: 250px;
+    background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 16px; overflow: hidden; cursor: pointer;
+    transition: all 0.4s ease; pointer-events: auto;
 }
+.skill-card:hover { border-color: var(--tech-blue); box-shadow: 0 0 25px rgba(79, 172, 254, 0.4); transform: translateY(-5px); }
+.skill-front, .skill-back { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 20px; transition: 0.4s ease; }
+.skill-front { background: transparent; z-index: 2; }
+.skill-front h3 { font-size: 2rem; color: #ffffff; transition: color 0.3s; }
+.skill-card:hover .skill-front h3 { color: var(--tech-blue); }
+.skill-back { background: linear-gradient(135deg, rgba(0, 12, 24, 0.9), rgba(0, 45, 79, 0.9)); opacity: 0; transform: translateY(20px); z-index: 3; }
+.skill-back p { font-size: 1.1rem; line-height: 1.6; color: #e0e0e0; }
+.skill-card:hover .skill-front { opacity: 0; transform: translateY(-20px); }
+.skill-card:hover .skill-back { opacity: 1; transform: translateY(0); }
 
-/* [색상 변경] 호버 시 네온 블루 테두리 & 글로우 효과 */
-.skill-card:hover {
-    border-color: #4facfe; 
-    box-shadow: 0 0 20px rgba(79, 172, 254, 0.3);
-    transform: translateY(-5px);
-}
-
-.skill-front,
-.skill-back {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 40px;
-    text-align: center;
-    transition: opacity 0.4s ease, transform 0.4s ease;
-}
-
-.skill-front {
-    z-index: 2;
-    background: linear-gradient(145deg, rgba(255, 255, 255, 0.05), transparent);
-}
-
-.skill-front h3 {
-    font-size: 2.5rem;
-    color: #fff;
-    transition: color 0.3s;
-}
-
-/* [색상 변경] 호버 시 텍스트도 블루로 */
-.skill-card:hover .skill-front h3 {
-    color: #4facfe;
-}
-
-.skill-back {
-    z-index: 1;
-    /* [색상 변경] 기존 녹색 그라데이션 -> 딥 블루 그라데이션 */
-    background: linear-gradient(135deg, #000c18, #002d4f);
-    opacity: 0;
-    transform: translateY(20px);
-}
-
-.skill-card:hover .skill-front {
-    opacity: 0;
-    transform: translateY(-20px);
-}
-
-.skill-card:hover .skill-back {
-    opacity: 1;
-    transform: translateY(0);
-    z-index: 3;
-}
-
-.skill-back p {
-    font-size: 1.2rem;
-    line-height: 1.6;
-    color: #e0e0e0;
-}
-
-/* =========================================
-   FOOTER (Clean White Style)
-   ========================================= */
 .main-footer {
-    text-align: center;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    padding-top: 40px;
-    padding-bottom: 40px;
-    color: #888;
-    width: 100%;
+    width: 100%; max-width: 1000px; text-align: center;
+    border-top: 1px solid rgba(255, 255, 255, 0.1); padding-top: 40px; padding-bottom: 40px; color: #888;
+    z-index: 10; position: relative; pointer-events: auto;
 }
+.main-footer a { color: #fff; font-weight: 600; transition: 0.3s; }
+.main-footer a:hover { color: var(--tech-blue); }
 
-.main-footer p {
-    margin-bottom: 10px;
-}
-
-/* [색상 변경] 링크 색상 화이트로 변경 */
-.main-footer a {
-    color: #ffffff;
-    text-decoration: none;
-    font-weight: 600;
-    transition: color 0.3s;
-}
-
-.main-footer a:hover {
-    color: #4facfe; /* 호버 시 블루 */
-}
-
-/* =========================================
-   MODAL (Previous Version Logic)
-   ========================================= */
-.modal {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.9);
-    z-index: 2000;
-    justify-content: center;
-    align-items: center;
-}
-
-.modal-scroll-area {
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start; 
-    padding: 50px 20px;
-    -webkit-overflow-scrolling: touch;
-}
-
-.modal-content {
-    position: relative;
-    width: 80%;
-    max-width: 1000px;
-    /* aspect-ratio 제거: 이미지/비디오 크기에 유동적 대응 */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.modal-video {
-    display: none;
-    width: 100%;
-    aspect-ratio: 16/9;
-    background: #000;
-}
-
-.modal-image {
-    display: none;
-    max-width: 100%;
-    max-height: 90vh;
-    object-fit: contain;
-    box-shadow: 0 0 30px rgba(0,0,0,0.5);
-}
-
-.close-modal {
-    position: fixed; /* 스크롤 시에도 우측 상단 고정 */
-    top: 20px;
-    right: 30px;
-    color: #fff;
-    font-size: 3rem;
-    cursor: pointer;
-    z-index: 10001;
-}
-
-/* =========================================
-   MOBILE RESPONSIVE
-   (필수: 이 부분이 있어야 모바일에서 깨지지 않습니다)
-   ========================================= */
+/* Modal & Mobile */
+.modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.95); z-index: 9999; opacity: 0; transition: opacity 0.3s; }
+.modal-scroll-area { width: 100%; height: 100%; overflow: auto; display: flex; justify-content: center; align-items: flex-start; padding: 50px 20px; -webkit-overflow-scrolling: touch; }
+.modal-content { position: relative; width: auto; max-width: 100%; display: flex; justify-content: center; }
+.modal-image { display: none; width: auto; max-width: 100%; }
+.modal-video { display: none; width: 90vw; max-width: 1200px; aspect-ratio: 16/9; border-radius: 10px; }
+.close-modal { position: fixed; top: 20px; right: 30px; color: #fff; font-size: 3rem; font-weight: bold; cursor: pointer; z-index: 10000; }
 @media (max-width: 768px) {
-    /* 폰트 사이즈 조정 */
-    .section-title { font-size: 2.5rem; }
-    .hero-title { font-size: 12vw; }
-
-    /* 스킬 섹션 모바일: 한 줄에 1개씩 */
-    .skills-container {
-        grid-template-columns: 1fr;
-        padding: 0 20px;
-    }
-    .skill-card {
-        height: 220px; /* 모바일에서 높이 약간 축소 */
-    }
-    .skill-front h3 {
-        font-size: 2rem;
-    }
-
-    /* 모달 모바일 조정 */
-    .modal-content {
-        width: 100%;
-    }
-    .modal-scroll-area {
-        padding: 0;
-        align-items: center;
-    }
-    .close-modal {
-        top: 15px;
-        right: 20px;
-        font-size: 2.5rem;
-        background: rgba(0,0,0,0.5); /* 배경 추가하여 가독성 확보 */
-        width: 40px; height: 40px;
-        line-height: 40px; text-align: center;
-        border-radius: 50%;
-    }
+    .section { padding: 60px 20px; } .hero-title { font-size: 12vw; }
+    .skills-container { grid-template-columns: 1fr; padding: 0 20px; } .skill-card { height: 200px; }
+    .modal-scroll-area { padding: 0; align-items: center; } .modal-image { width: 100%; }
+    .close-modal { top: 15px; right: 20px; font-size: 2.5rem; background: rgba(0,0,0,0.5); width: 40px; height: 40px; line-height: 40px; text-align: center; border-radius: 50%; }
+    video::-webkit-media-controls { display: none !important; }
 }
