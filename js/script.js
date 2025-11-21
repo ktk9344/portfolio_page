@@ -1,68 +1,52 @@
 gsap.registerPlugin(ScrollTrigger);
 
-// 1. Intro Text Animation
+// 1. Intro & About Animation
 gsap.from(".hero-title .line", {
-    y: 100,
-    opacity: 0,
-    duration: 1.5,
-    stagger: 0.3,
-    ease: "power4.out",
-    delay: 0.5
+    y: 100, opacity: 0, duration: 1.5, stagger: 0.3, ease: "power4.out", delay: 0.5
 });
 
-// 2. About Text Floating Effect
 gsap.utils.toArray(".about-content p").forEach(text => {
     gsap.from(text, {
-        scrollTrigger: {
-            trigger: text,
-            start: "top 85%", // 모바일 고려하여 트리거 지점 조정
-            toggleActions: "play none none reverse"
-        },
-        y: 50,
-        opacity: 0,
-        duration: 1
+        scrollTrigger: { trigger: text, start: "top 85%", toggleActions: "play none none reverse" },
+        y: 30, opacity: 0, duration: 1
     });
 });
 
-// 3. Card Deck Fan Animation (Responsive Version)
+// 2. [핵심] 부채꼴 카드 애니메이션 (좌표 오류 수정됨)
 function animateDeck(selector) {
-    const deck = document.querySelector(selector);
     const cards = gsap.utils.toArray(`${selector} .card`);
     const totalCards = cards.length;
     
-    // 모바일 감지 (768px 이하)
-    const isMobile = window.innerWidth <= 768;
-
-    // 모바일이면 부채꼴 간격을 좁게, PC면 넓게 설정
-    const spreadDistance = isMobile ? 15 : 30; // x축 간격
-    const rotationRange = isMobile ? 40 : 60;  // 회전 각도 범위
-    
-    // 초기 상태 설정
-    gsap.set(cards, {
-        position: "absolute",
-        top: 0,
-        left: 0,
-        x: 0,
-        y: 0,
-        rotation: 0
+    // 카드 초기화 (중앙에 겹쳐두기)
+    gsap.set(cards, { 
+        x: 0, y: 0, rotation: 0, scale: 1 
     });
 
-    // 애니메이션 트리거
     ScrollTrigger.create({
         trigger: selector,
-        start: "top 75%", // 화면의 75% 지점에 오면 시작
+        start: "top 70%", // 화면에 70%쯤 보이면 시작
         onEnter: () => {
+            // 화면 크기에 따라 펼쳐지는 정도 조절
+            const isMobile = window.innerWidth <= 768;
+            const spreadX = isMobile ? 20 : 40;    // X축 간격 (좁게/넓게)
+            const rotationMax = isMobile ? 30 : 50; // 회전 각도
+            
             cards.forEach((card, i) => {
-                // 부채꼴 각도 및 위치 계산
-                const rotation = -rotationRange/2 + (rotationRange / (totalCards - 1)) * i;
-                const xPos = (i - (totalCards/2)) * spreadDistance; 
+                // 중앙(0)을 기준으로 좌우 대칭 계산
+                // 예: 5장이면 -2, -1, 0, 1, 2 순서
+                const centerOffset = i - (totalCards - 1) / 2;
                 
+                // 회전 및 이동 계산
+                const rotation = centerOffset * (rotationMax / (totalCards/2));
+                const xPos = centerOffset * spreadX;
+                const yPos = Math.abs(centerOffset) * (isMobile ? 5 : 15); // 아치형 (양끝이 내려가게)
+
                 gsap.to(card, {
-                    rotation: rotation,
                     x: xPos,
-                    y: Math.abs(xPos) * (isMobile ? 0.2 : 0.1), // 양 끝 카드를 살짝 아래로 내림 (아치형)
+                    y: yPos,
+                    rotation: rotation,
                     duration: 1.2,
-                    ease: "back.out(1.2)", // 탄성 효과
+                    ease: "back.out(1.5)", // 부드러운 탄성
                     delay: i * 0.05
                 });
             });
@@ -70,12 +54,13 @@ function animateDeck(selector) {
     });
 }
 
-// Apply Animation
+// 섹션별 적용
 animateDeck("#game-deck");
 animateDeck("#ar-deck");
 animateDeck("#meta-deck");
 
-// 4. Video Modal Interaction
+
+// 3. Modal Interaction
 const modal = document.getElementById("video-modal");
 const modalVideo = document.querySelector(".modal-video");
 const closeBtn = document.querySelector(".close-modal");
@@ -97,9 +82,9 @@ closeBtn.addEventListener("click", () => {
     modalVideo.pause();
 });
 
-window.onclick = function(event) {
-    if (event.target == modal) {
+window.onclick = (e) => {
+    if (e.target == modal) {
         modal.style.display = "none";
         modalVideo.pause();
     }
-}
+};

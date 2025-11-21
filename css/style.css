@@ -3,18 +3,23 @@
     --text-color: #ffffff;
     --accent-color: #00ff88;
     --secondary-color: #888888;
-    /* 영문은 Outfit, 한글은 Noto Sans KR 적용 */
     --font-main: 'Outfit', 'Noto Sans KR', sans-serif;
     --font-body: 'Inter', 'Noto Sans KR', sans-serif;
+    
+    /* [PC 기준] 카드 크기 */
     --card-width: 300px;
     --card-height: 450px;
 }
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+/* [모바일 기준] 카드 크기 재정의 (화면 768px 이하) */
+@media (max-width: 768px) {
+    :root {
+        --card-width: 200px;  /* 크기를 줄임 */
+        --card-height: 320px; /* 크기를 줄임 */
+    }
 }
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
     background-color: var(--bg-color);
@@ -24,50 +29,26 @@ body {
     -webkit-font-smoothing: antialiased;
 }
 
-h1, h2, h3 {
-    font-family: var(--font-main);
-    font-weight: 700;
-}
-
-a {
-    color: inherit;
-    text-decoration: none;
-    transition: color 0.3s;
-}
-
-a:hover {
-    color: var(--accent-color);
-}
+h1, h2, h3 { font-family: var(--font-main); font-weight: 700; }
 
 /* Navigation */
 .fixed-nav {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
+    position: fixed; top: 0; left: 0; width: 100%;
     padding: 20px 40px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    z-index: 1000;
-    mix-blend-mode: difference;
+    display: flex; justify-content: space-between; align-items: center;
+    z-index: 1000; mix-blend-mode: difference;
 }
+.logo { font-weight: 700; font-size: 1.5rem; }
 
-.logo {
-    font-family: var(--font-main);
-    font-weight: 700;
-    font-size: 1.5rem;
-}
-
-/* Sections Generic */
+/* Generic Section Style */
 .section {
     min-height: 100vh;
     position: relative;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 40px;
+    justify-content: center; /* 수직 중앙 정렬 */
+    align-items: center;     /* 수평 중앙 정렬 */
+    padding: 40px 20px;
     overflow: hidden;
 }
 
@@ -75,386 +56,128 @@ a:hover {
     width: 100%;
     max-width: 1400px;
     margin: 0 auto;
-    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* 내부 요소 중앙 정렬 */
 }
 
 .section-title {
-    font-size: 4rem;
-    margin-bottom: 1rem;
-    text-align: center;
-    opacity: 0;
-    transform: translateY(30px);
+    font-size: 3rem; margin-bottom: 1rem; text-align: center;
+    opacity: 0; transform: translateY(30px);
 }
-
 .section-subtitle {
-    font-size: 1.2rem;
-    color: var(--secondary-color);
-    text-align: center;
-    margin-bottom: 4rem;
-    opacity: 0;
-    transform: translateY(30px);
+    font-size: 1.2rem; color: var(--secondary-color);
+    text-align: center; margin-bottom: 3rem;
+    opacity: 0; transform: translateY(30px);
 }
 
 /* SECTION 1: Intro */
-.intro-section {
-    padding: 0;
-}
-
-.bg-video {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    z-index: -1;
-}
-
-.overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.4);
-    z-index: 0;
-}
-
-.content-wrapper {
-    position: relative;
-    z-index: 1;
-    text-align: center;
-}
-
-.hero-title {
-    font-size: 6vw;
-    line-height: 1.1;
-    text-transform: uppercase;
-    letter-spacing: -0.02em;
-}
-
-.hero-title .line {
-    display: block;
-    opacity: 0;
-    transform: translateY(50px);
-}
-
-.scroll-indicator {
-    margin-top: 2rem;
-    font-size: 1rem;
-    opacity: 0;
-    animation: bounce 2s infinite;
-}
-
-@keyframes bounce {
-    0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-    40% { transform: translateY(-10px); }
-    60% { transform: translateY(-5px); }
-}
+.intro-section { padding: 0; }
+.bg-video { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: -1; }
+.overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.4); z-index: 0; }
+.content-wrapper { position: relative; z-index: 1; text-align: center; }
+.hero-title { font-size: 8vw; line-height: 1.1; text-transform: uppercase; }
+.hero-title .line { display: block; opacity: 0; transform: translateY(50px); }
+.scroll-indicator { margin-top: 2rem; opacity: 0; animation: bounce 2s infinite; }
+@keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
 
 /* SECTION 2: About */
-.about-section {
-    background-color: #111;
-}
+.about-section { background-color: #111; }
+.about-content { text-align: center; max-width: 800px; }
+.large-text { font-size: 2.5rem; line-height: 1.4; margin-bottom: 2rem; word-break: keep-all; }
+.medium-text { font-size: 1.5rem; color: var(--secondary-color); word-break: keep-all; }
+.highlight { color: var(--accent-color); font-weight: 600; }
 
-.about-content {
-    text-align: center;
-    max-width: 800px;
-    margin: 0 auto;
-}
-
-.large-text {
-    font-size: 3rem;
-    line-height: 1.4;
-    margin-bottom: 2rem;
-    font-weight: 300;
-    word-break: keep-all; /* 한글 줄바꿈 최적화 */
-}
-
-.medium-text {
-    font-size: 2rem;
-    color: var(--secondary-color);
-    word-break: keep-all;
-}
-
-.highlight {
-    color: var(--accent-color);
-    font-weight: 600;
-}
-
-/* SECTION 3, 4, 5: Card Decks */
+/* SECTION 3, 4, 5: Card Decks (수정된 핵심 부분) */
 .deck-section {
     perspective: 1000px;
+    width: 100%;
+    display: flex;
+    justify-content: center; /* 무조건 중앙 정렬 */
+    align-items: center;
 }
 
 .card-deck {
     position: relative;
-    height: 600px;
+    /* 변수로 크기 제어 -> 모바일/PC 자동 대응 */
+    width: var(--card-width);
+    height: var(--card-height);
+    margin-top: 20px;
+    /* 정렬을 위한 설정 */
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
 .card {
-    position: absolute;
-    width: var(--card-width);
-    height: var(--card-height);
+    position: absolute; /* 덱 안에서 겹치게 배치 */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     background-color: #333;
     background-size: cover;
     background-position: center;
     border-radius: 15px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-    transform-origin: center bottom;
-    transition: transform 0.4s ease, z-index 0s;
+    
+    /* JS 간섭을 위해 transform 초기화 */
+    transform-origin: center bottom; 
     cursor: pointer;
-    overflow: hidden;
+    will-change: transform; /* 성능 최적화 */
 }
 
-/* Video Card Specifics */
-.video-card video {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    opacity: 0.6;
-    transition: opacity 0.3s;
-}
-
-.video-card:hover video {
-    opacity: 1;
-}
-
-/* Image Card Specifics */
-.image-card {
-    background-size: cover;
-    background-position: center;
-}
-
+.video-card video { width: 100%; height: 100%; object-fit: cover; opacity: 0.8; }
 .card-label {
-    position: absolute;
-    bottom: 20px;
-    left: 0;
-    width: 100%;
-    text-align: center;
-    font-weight: 600;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
-    transform: translateY(100%);
-    transition: transform 0.3s;
-    color: #fff;
-}
-
-.card:hover .card-label {
-    transform: translateY(0);
-}
-
-/* SECTION 5: Metaverse Specifics */
-.metaverse-section {
-    background-color: #f0f0f0;
-    color: #111;
+    position: absolute; bottom: 15px; width: 100%; text-align: center;
+    font-weight: 600; color: #fff; text-shadow: 0 2px 4px rgba(0,0,0,0.8);
 }
 
 /* SECTION 6: Skills */
-.skills-section {
-    background-color: #050505;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
+.skills-section { background-color: #050505; }
 .skills-container {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 30px;
-    width: 100%;
-    max-width: 1200px;
-    margin: 0 auto 60px auto;
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;
+    width: 100%; max-width: 1000px;
 }
-
 .skill-card {
-    position: relative;
-    height: 300px;
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 20px;
-    overflow: hidden;
-    cursor: pointer;
-    transition: transform 0.3s, border-color 0.3s;
+    height: 250px; background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1); border-radius: 15px;
+    position: relative; overflow: hidden;
 }
-
-.skill-card:hover {
-    border-color: var(--accent-color);
-    transform: translateY(-5px);
-}
-
 .skill-front, .skill-back {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 40px;
-    text-align: center;
-    transition: opacity 0.4s ease, transform 0.4s ease;
+    position: absolute; inset: 0; display: flex; flex-direction: column;
+    justify-content: center; align-items: center; text-align: center; padding: 20px;
+    transition: 0.4s;
 }
+.skill-front { background: transparent; z-index: 2; }
+.skill-back { background: #000; opacity: 0; transform: translateY(20px); z-index: 3; }
+.skill-card:hover .skill-front { opacity: 0; transform: translateY(-20px); }
+.skill-card:hover .skill-back { opacity: 1; transform: translateY(0); }
+.skill-front h3 { font-size: 2rem; color: #fff; }
 
-.skill-front {
-    z-index: 2;
-    background: linear-gradient(145deg, rgba(255, 255, 255, 0.05), transparent);
-}
-
-.skill-front h3 {
-    font-size: 2.5rem;
-    color: #fff;
-}
-
-.skill-back {
-    z-index: 1;
-    background: linear-gradient(135deg, #004d29, #000000);
-    opacity: 0;
-    transform: translateY(20px);
-}
-
-.skill-card:hover .skill-front {
-    opacity: 0;
-    transform: translateY(-20px);
-}
-
-.skill-card:hover .skill-back {
-    opacity: 1;
-    transform: translateY(0);
-    z-index: 3;
-}
-
-.skill-back p {
-    font-size: 1.2rem;
-    line-height: 1.6;
-    color: #e0e0e0;
-}
-
-.main-footer {
-    text-align: center;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    padding-top: 40px;
-    color: var(--secondary-color);
-    width: 100%;
-}
+/* Footer */
+.main-footer { padding: 40px; text-align: center; border-top: 1px solid #333; color: #888; width: 100%; }
 
 /* Modal */
-.modal {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.9);
-    z-index: 2000;
-    justify-content: center;
-    align-items: center;
-}
+.modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.9); z-index: 2000; justify-content: center; align-items: center; }
+.modal-content { position: relative; width: 90%; max-width: 800px; aspect-ratio: 16/9; }
+.modal-video { width: 100%; height: 100%; }
+.close-modal { position: absolute; top: -40px; right: 0; color: #fff; font-size: 2rem; cursor: pointer; }
 
-.modal-content {
-    position: relative;
-    width: 80%;
-    max-width: 1000px;
-    aspect-ratio: 16/9;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.modal-video {
-    width: 100%;
-    height: 100%;
-    background: #000;
-}
-
-.close-modal {
-    position: absolute;
-    top: -40px;
-    right: -40px;
-    color: #fff;
-    font-size: 3rem;
-    cursor: pointer;
-}
-
-/* =========================================
-   MOBILE RESPONSIVE (최종 수정판)
-   부채꼴 효과 강제 적용
-   ========================================= */
+/* ================= Mobile Adjustments ================= */
 @media (max-width: 768px) {
-    
-    /* 1. 기본 폰트 및 여백 조정 */
+    .section { padding: 60px 20px; } /* 위아래 여백 확보 */
     .hero-title { font-size: 12vw; }
     .section-title { font-size: 2rem; }
+    .large-text { font-size: 1.5rem; }
+    .medium-text { font-size: 1.1rem; }
     
-    /* 2. 덱 섹션 높이 확보 */
-    .deck-section {
-        min-height: 60vh;
-        padding: 20px 0;
-        overflow: hidden; /* 가로 스크롤 방지 */
-        display: flex;
-        justify-content: center; /* 중앙 정렬 */
-        align-items: flex-start;
-    }
-
-    /* 3. [핵심] 카드 덱(부모) 전체를 축소 */
-    .card-deck {
-        position: relative;
-        width: 300px;  /* PC와 동일한 기준 폭 */
-        height: 450px; /* PC와 동일한 기준 높이 */
-        margin-top: 40px;
-        
-        /* 부모 컨테이너 자체를 60%로 줄여서 모바일 화면에 맞춤 */
-        transform: scale(0.6); 
-        transform-origin: center top;
-        
-        /* Flex 속성 제거하고 내부 요소 절대 배치 허용 */
-        display: block; 
-    }
-
-    /* 4. 개별 카드 스타일 */
-    .card {
-        position: absolute !important; /* 무조건 절대 위치 */
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        border-radius: 15px;
-        box-shadow: 0 5px 15px rgba(0,0,0,0.5);
-        
-        /* CSS transform 제거 (JS가 제어하도록 둠) */
-        transform: none; 
-    }
-
-    .card-label {
-        font-size: 1.2rem; 
-        bottom: 20px;
-    }
+    /* 스킬 섹션 한 줄로 */
+    .skills-container { grid-template-columns: 1fr; }
     
-    /* 5. 모바일 스킬 섹션 */
-    .skills-container {
-        grid-template-columns: 1fr;
-        padding: 0 30px;
-    }
-}
-    /* 6. 스킬 섹션 등 기타 요소 */
-    .skills-container {
-        grid-template-columns: 1fr; /* 한 줄에 하나씩 */
-        padding: 0 20px;
-    }
+    /* 카드가 잘리지 않도록 높이 확보 */
+    .deck-section { min-height: 70vh; }
     
-    .fixed-nav {
-        padding: 15px 20px;
-    }
-    
-    .close-modal {
-        top: -40px;
-        right: 0;
-        font-size: 2rem;
-    }
+    /* 모바일에서 부채꼴이 너무 퍼지지 않게 카드 덱 마진 조정 */
+    .card-deck { margin-top: 10px; }
 }
