@@ -383,68 +383,65 @@ a:hover {
 }
 
 /* =========================================
-   MOBILE RESPONSIVE (수정된 부분)
-   모바일에서도 부채꼴 효과(Fan Effect) 유지
+   MOBILE RESPONSIVE (최종 수정판)
+   부채꼴 효과 강제 적용
    ========================================= */
 @media (max-width: 768px) {
     
-    /* 1. 폰트 및 타이틀 크기 최적화 */
-    .section-title { font-size: 2rem; }
-    .section-subtitle { font-size: 1rem; margin-bottom: 2rem; }
+    /* 1. 기본 폰트 및 여백 조정 */
     .hero-title { font-size: 12vw; }
-    .large-text { font-size: 1.8rem; }
-    .medium-text { font-size: 1.2rem; }
-
-    /* 2. 섹션 레이아웃 확보 */
+    .section-title { font-size: 2rem; }
+    
+    /* 2. 덱 섹션 높이 확보 */
     .deck-section {
-        min-height: 60vh;          /* 높이 적절히 확보 */
-        padding: 40px 0;           /* 좌우 여백 제거 (overflow 방지) */
-        overflow: hidden;
+        min-height: 60vh;
+        padding: 20px 0;
+        overflow: hidden; /* 가로 스크롤 방지 */
         display: flex;
-        align-items: flex-start;   /* 위쪽 정렬 */
+        justify-content: center; /* 중앙 정렬 */
+        align-items: flex-start;
     }
 
-    /* 3. 카드 덱(컨테이너) 축소 및 위치 조정 */
+    /* 3. [핵심] 카드 덱(부모) 전체를 축소 */
     .card-deck {
-        /* PC와 동일하게 가로 배치 유지 */
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 300px;  /* 기준 크기 유지 */
-        height: 450px; /* 기준 크기 유지 */
+        position: relative;
+        width: 300px;  /* PC와 동일한 기준 폭 */
+        height: 450px; /* PC와 동일한 기준 높이 */
+        margin-top: 40px;
         
-        /* 모바일 화면 폭에 맞춰 0.65배로 전체 축소 */
-        transform: scale(0.65);
-        transform-origin: center top; 
-        margin-top: 20px;
+        /* 부모 컨테이너 자체를 60%로 줄여서 모바일 화면에 맞춤 */
+        transform: scale(0.6); 
+        transform-origin: center top;
+        
+        /* Flex 속성 제거하고 내부 요소 절대 배치 허용 */
+        display: block; 
     }
 
     /* 4. 개별 카드 스타일 */
     .card {
-        /* 절대 위치 유지 (부채꼴 효과 필수) */
-        position: absolute;
+        position: absolute !important; /* 무조건 절대 위치 */
+        top: 0;
+        left: 0;
         width: 100%;
         height: 100%;
-        max-width: none;
-        margin-bottom: 0;
         border-radius: 15px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.5);
         
-        /* 중요: 이전에 있던 transform: none !important 제거됨 */
+        /* CSS transform 제거 (JS가 제어하도록 둠) */
+        transform: none; 
     }
 
     .card-label {
-        font-size: 1rem; /* 라벨 크기 조정 */
-        bottom: 10px;
+        font-size: 1.2rem; 
+        bottom: 20px;
     }
-
-    /* 5. 모바일 터치 인터랙션 (Active) */
-    /* 손가락으로 누르면 카드가 맨 앞으로 튀어나옴 */
-    .card:active {
-        z-index: 1000 !important;
-        transform: scale(1.1) translateY(-30px) !important;
-        transition: transform 0.2s;
+    
+    /* 5. 모바일 스킬 섹션 */
+    .skills-container {
+        grid-template-columns: 1fr;
+        padding: 0 30px;
     }
-
+}
     /* 6. 스킬 섹션 등 기타 요소 */
     .skills-container {
         grid-template-columns: 1fr; /* 한 줄에 하나씩 */
