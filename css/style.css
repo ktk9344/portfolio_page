@@ -3,8 +3,9 @@
     --text-color: #ffffff;
     --accent-color: #00ff88;
     --secondary-color: #888888;
-    --font-main: 'Outfit', sans-serif;
-    --font-body: 'Inter', sans-serif;
+    /* 영문은 Outfit, 한글은 Noto Sans KR 적용 */
+    --font-main: 'Outfit', 'Noto Sans KR', sans-serif;
+    --font-body: 'Inter', 'Noto Sans KR', sans-serif;
     --card-width: 300px;
     --card-height: 450px;
 }
@@ -23,9 +24,7 @@ body {
     -webkit-font-smoothing: antialiased;
 }
 
-h1,
-h2,
-h3 {
+h1, h2, h3 {
     font-family: var(--font-main);
     font-weight: 700;
 }
@@ -148,22 +147,9 @@ a:hover {
 }
 
 @keyframes bounce {
-
-    0%,
-    20%,
-    50%,
-    80%,
-    100% {
-        transform: translateY(0);
-    }
-
-    40% {
-        transform: translateY(-10px);
-    }
-
-    60% {
-        transform: translateY(-5px);
-    }
+    0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+    40% { transform: translateY(-10px); }
+    60% { transform: translateY(-5px); }
 }
 
 /* SECTION 2: About */
@@ -182,11 +168,13 @@ a:hover {
     line-height: 1.4;
     margin-bottom: 2rem;
     font-weight: 300;
+    word-break: keep-all; /* 한글 줄바꿈 최적화 */
 }
 
 .medium-text {
     font-size: 2rem;
     color: var(--secondary-color);
+    word-break: keep-all;
 }
 
 .highlight {
@@ -298,8 +286,7 @@ a:hover {
     transform: translateY(-5px);
 }
 
-.skill-front,
-.skill-back {
+.skill-front, .skill-back {
     position: absolute;
     top: 0;
     left: 0;
@@ -386,12 +373,6 @@ a:hover {
     background: #000;
 }
 
-.modal-image {
-    max-width: 100%;
-    max-height: 90vh;
-    object-fit: contain;
-}
-
 .close-modal {
     position: absolute;
     top: -40px;
@@ -401,32 +382,82 @@ a:hover {
     cursor: pointer;
 }
 
-/* Mobile Responsive */
+/* =========================================
+   MOBILE RESPONSIVE (수정된 부분)
+   모바일에서도 부채꼴 효과(Fan Effect) 유지
+   ========================================= */
 @media (max-width: 768px) {
-    .section-title {
-        font-size: 2.5rem;
+    
+    /* 1. 폰트 및 타이틀 크기 최적화 */
+    .section-title { font-size: 2rem; }
+    .section-subtitle { font-size: 1rem; margin-bottom: 2rem; }
+    .hero-title { font-size: 12vw; }
+    .large-text { font-size: 1.8rem; }
+    .medium-text { font-size: 1.2rem; }
+
+    /* 2. 섹션 레이아웃 확보 */
+    .deck-section {
+        min-height: 60vh;          /* 높이 적절히 확보 */
+        padding: 40px 0;           /* 좌우 여백 제거 (overflow 방지) */
+        overflow: hidden;
+        display: flex;
+        align-items: flex-start;   /* 위쪽 정렬 */
     }
 
-    .hero-title {
-        font-size: 12vw;
-    }
-
+    /* 3. 카드 덱(컨테이너) 축소 및 위치 조정 */
     .card-deck {
-        flex-direction: column;
-        height: auto;
-        gap: 20px;
+        /* PC와 동일하게 가로 배치 유지 */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 300px;  /* 기준 크기 유지 */
+        height: 450px; /* 기준 크기 유지 */
+        
+        /* 모바일 화면 폭에 맞춰 0.65배로 전체 축소 */
+        transform: scale(0.65);
+        transform-origin: center top; 
+        margin-top: 20px;
     }
 
+    /* 4. 개별 카드 스타일 */
     .card {
-        position: relative;
-        transform: none !important;
+        /* 절대 위치 유지 (부채꼴 효과 필수) */
+        position: absolute;
         width: 100%;
-        max-width: 350px;
-        height: 500px;
-        margin-bottom: 20px;
+        height: 100%;
+        max-width: none;
+        margin-bottom: 0;
+        border-radius: 15px;
+        
+        /* 중요: 이전에 있던 transform: none !important 제거됨 */
     }
 
+    .card-label {
+        font-size: 1rem; /* 라벨 크기 조정 */
+        bottom: 10px;
+    }
+
+    /* 5. 모바일 터치 인터랙션 (Active) */
+    /* 손가락으로 누르면 카드가 맨 앞으로 튀어나옴 */
+    .card:active {
+        z-index: 1000 !important;
+        transform: scale(1.1) translateY(-30px) !important;
+        transition: transform 0.2s;
+    }
+
+    /* 6. 스킬 섹션 등 기타 요소 */
     .skills-container {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr; /* 한 줄에 하나씩 */
+        padding: 0 20px;
+    }
+    
+    .fixed-nav {
+        padding: 15px 20px;
+    }
+    
+    .close-modal {
+        top: -40px;
+        right: 0;
+        font-size: 2rem;
     }
 }
