@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
         initSkills();
         initModal();
         initVRBackground();
-        initBackToTop(); // [New] 탑 버튼
+        initBackToTop();
         ScrollTrigger.refresh();
     };
 });
@@ -53,10 +53,9 @@ function animateDeck(sectionId, cardSelector) {
         onUpdate: (self) => {
             const progress = self.progress;
             const isMobile = window.innerWidth <= 768;
-            // 모바일에서도 크고 넓게 보이도록 팩터 조정
-            const spreadFactor = isMobile ? 10 : 15; 
-            const xDistanceFactor = isMobile ? 60 : 100;
-            const yArchFactor = isMobile ? 15 : 20;
+            const spreadFactor = isMobile ? 8 : 15; 
+            const xDistanceFactor = isMobile ? 50 : 100;
+            const yArchFactor = isMobile ? 10 : 20;
             const spread = spreadFactor * totalCards * progress;
             const startAngle = -spread / 2;
 
@@ -96,7 +95,7 @@ function initSkills() {
     });
 }
 
-// 5. Modal Logic (Section Specific Navigation)
+// 5. Modal Logic
 function initModal() {
     const modal = document.getElementById('media-modal');
     const modalImg = modal.querySelector('.modal-image');
@@ -104,18 +103,16 @@ function initModal() {
     const closeBtn = modal.querySelector('.close-modal');
     const prevBtn = modal.querySelector('.prev-btn');
     const nextBtn = modal.querySelector('.next-btn');
+    const scrollArea = modal.querySelector('.modal-scroll-area');
 
     const allCards = document.querySelectorAll('.card');
     
     allCards.forEach((card) => {
         card.addEventListener('click', (e) => {
             e.stopPropagation();
-            
-            // [중요] 클릭한 카드가 속한 섹션(Deck) 찾기
             const parentDeck = card.closest('.card-deck');
             if (!parentDeck) return;
 
-            // 해당 섹션 내의 카드들만 수집
             const sectionCards = parentDeck.querySelectorAll('.card');
             currentGalleryItems = [];
             
@@ -132,8 +129,6 @@ function initModal() {
                     }
                 }
                 currentGalleryItems.push({ type: isVideo ? 'video' : 'image', src: src });
-                
-                // 클릭한 카드의 인덱스 저장
                 if(item === card) currentItemIndex = index;
             });
 
@@ -187,6 +182,14 @@ function initModal() {
     }
 
     closeBtn.addEventListener("click", () => history.back());
+    
+    // [2번 요청] 비영역(배경) 터치 시 닫기
+    scrollArea.addEventListener("click", (e) => {
+        if (e.target === scrollArea) {
+            history.back();
+        }
+    });
+
     window.addEventListener("popstate", () => closeModal());
 }
 
