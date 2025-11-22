@@ -9,21 +9,44 @@
     --tech-blue: #4facfe; 
     --font-main: 'Outfit', 'Noto Sans KR', sans-serif;
     --font-body: 'Inter', 'Noto Sans KR', sans-serif;
+    /* [PC 기준 크기로 고정] */
     --card-width: 300px;
     --card-height: 450px;
 }
-@media (max-width: 768px) { :root { --card-width: 160px; --card-height: 240px; } }
+
 * { margin: 0; padding: 0; box-sizing: border-box; }
-body { background-color: var(--bg-color); color: var(--text-color); font-family: var(--font-body); overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: var(--font-body);
+    /* 가로 스크롤 방지 */
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+}
+
 h1, h2, h3 { font-family: var(--font-main); font-weight: 700; }
 a { color: inherit; text-decoration: none; transition: color 0.3s; }
 a:hover { color: var(--accent-color); }
 
-/* Nav & Generic */
-.fixed-nav { position: fixed; top: 0; left: 0; width: 100%; padding: 20px 40px; display: flex; justify-content: space-between; align-items: center; z-index: 1000; mix-blend-mode: difference; }
+/* Navigation */
+.fixed-nav {
+    position: fixed; top: 0; left: 0; width: 100%; padding: 20px 40px;
+    display: flex; justify-content: space-between; align-items: center;
+    z-index: 1000; mix-blend-mode: difference;
+}
 .logo { font-weight: 700; font-size: 1.5rem; }
-.section { min-height: 100vh; position: relative; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 40px 20px; overflow: hidden; }
-.container { width: 100%; max-width: 1400px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; position: relative; }
+
+/* Sections */
+.section {
+    min-height: 100vh; position: relative;
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    padding: 40px 20px; overflow: hidden;
+}
+.container {
+    width: 100%; max-width: 1400px; margin: 0 auto;
+    display: flex; flex-direction: column; align-items: center; position: relative;
+}
 .section-title { font-size: 3rem; margin-bottom: 1rem; text-align: center; opacity: 0; transform: translateY(30px); }
 .section-subtitle { font-size: 1.2rem; color: var(--secondary-color); text-align: center; margin-bottom: 3rem; opacity: 0; transform: translateY(30px); }
 
@@ -36,6 +59,7 @@ a:hover { color: var(--accent-color); }
 .hero-title .line { display: block; opacity: 0; transform: translateY(50px); }
 .scroll-indicator { margin-top: 2rem; opacity: 0; color: #fff; animation: bounce 2s infinite; }
 @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+
 .about-section { background-color: #111; }
 .about-content { text-align: center; max-width: 800px; }
 .large-text { font-size: 2.5rem; line-height: 1.4; margin-bottom: 2rem; word-break: keep-all; }
@@ -44,39 +68,39 @@ a:hover { color: var(--accent-color); }
 
 /* Decks */
 .deck-section { perspective: 1000px; width: 100%; }
-.card-deck { position: relative; width: var(--card-width); height: var(--card-height); margin-top: 20px; display: flex; justify-content: center; align-items: center; }
-.card { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: #333; background-size: cover; background-position: center; border-radius: 15px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); transform-origin: center bottom; cursor: pointer; will-change: transform; }
+.card-deck {
+    position: relative; width: var(--card-width); height: var(--card-height);
+    margin-top: 20px; display: flex; justify-content: center; align-items: center;
+}
+.card {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    background-color: #333; background-size: cover; background-position: center;
+    border-radius: 15px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    transform-origin: center bottom; cursor: pointer; will-change: transform;
+}
 .video-card video { width: 100%; height: 100%; object-fit: cover; opacity: 0.8; pointer-events: none; }
-.card-label { position: absolute; bottom: 15px; width: 100%; text-align: center; font-weight: 600; color: #fff; text-shadow: 0 2px 4px rgba(0,0,0,0.8); }
+.card-label {
+    position: absolute; bottom: 15px; width: 100%; text-align: center;
+    font-weight: 600; color: #fff; text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+}
 .metaverse-section { background-color: #f0f0f0; color: #111; }
 
-/* =========================================
-   SECTION 6: Skills (수정됨)
-   ========================================= */
+/* Skills & VR */
 .skills-section {
-    position: relative;
-    /* 높이를 충분히 주어 스크롤 트리거가 잘 작동하게 함 */
-    min-height: 120vh; 
+    position: relative; min-height: 120vh;
     display: flex; flex-direction: column; justify-content: center; align-items: center;
-    padding-bottom: 100px;
-    background: transparent;
-    overflow: hidden;
+    padding-bottom: 100px; background: transparent; overflow: hidden;
 }
-
 #vr-background {
     position: absolute; top: 0; left: 0; width: 100%; height: 100%;
     z-index: 0; pointer-events: auto; cursor: grab;
 }
 #vr-background:active { cursor: grabbing; }
-
 .skills-container {
     display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;
     width: 100%; max-width: 1000px; margin-bottom: 60px;
-    z-index: 10; /* 배경보다 확실히 위에 */
-    position: relative;
-    pointer-events: none; 
+    z-index: 10; position: relative; pointer-events: none;
 }
-
 .skill-card {
     position: relative; height: 250px;
     background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(10px);
@@ -101,17 +125,59 @@ a:hover { color: var(--accent-color); }
 .main-footer a { color: #fff; font-weight: 600; transition: 0.3s; }
 .main-footer a:hover { color: var(--tech-blue); }
 
-/* Modal & Mobile */
-.modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.95); z-index: 9999; opacity: 0; transition: opacity 0.3s; }
-.modal-scroll-area { width: 100%; height: 100%; overflow: auto; display: flex; justify-content: center; align-items: flex-start; padding: 50px 20px; -webkit-overflow-scrolling: touch; }
-.modal-content { position: relative; width: auto; max-width: 100%; display: flex; justify-content: center; }
-.modal-image { display: none; width: auto; max-width: 100%; }
-.modal-video { display: none; width: 90vw; max-width: 1200px; aspect-ratio: 16/9; border-radius: 10px; }
-.close-modal { position: fixed; top: 20px; right: 30px; color: #fff; font-size: 3rem; font-weight: bold; cursor: pointer; z-index: 10000; }
-@media (max-width: 768px) {
-    .section { padding: 60px 20px; } .hero-title { font-size: 12vw; }
-    .skills-container { grid-template-columns: 1fr; padding: 0 20px; } .skill-card { height: 200px; }
-    .modal-scroll-area { padding: 0; align-items: center; } .modal-image { width: 100%; }
-    .close-modal { top: 15px; right: 20px; font-size: 2.5rem; background: rgba(0,0,0,0.5); width: 40px; height: 40px; line-height: 40px; text-align: center; border-radius: 50%; }
-    video::-webkit-media-controls { display: none !important; }
+/* =========================================
+   Modal Styles (Centered & Arrows)
+   ========================================= */
+.modal { 
+    display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+    background: rgba(0, 0, 0, 0.95); z-index: 9999; opacity: 0; transition: opacity 0.3s; 
 }
+
+/* 정중앙 정렬 */
+.modal-scroll-area { 
+    width: 100%; height: 100%; 
+    display: flex; justify-content: center; align-items: center; /* 수직, 수평 중앙 */
+    padding: 20px;
+}
+
+.modal-content { 
+    position: relative; 
+    width: auto; max-width: 85%; max-height: 90vh;
+    display: flex; justify-content: center; align-items: center;
+}
+
+.modal-image { 
+    display: none; max-width: 100%; max-height: 85vh; 
+    border-radius: 4px; box-shadow: 0 0 30px rgba(0,0,0,0.8); 
+}
+.modal-video { 
+    display: none; max-width: 100%; max-height: 85vh; 
+    aspect-ratio: 16/9; border-radius: 10px; box-shadow: 0 0 30px rgba(0,0,0,0.8); 
+}
+
+.close-modal { 
+    position: fixed; top: 20px; right: 30px; color: #fff; 
+    font-size: 3rem; font-weight: bold; cursor: pointer; z-index: 10000; 
+}
+
+/* 화살표 스타일 (회색) */
+.modal-nav {
+    position: fixed; top: 50%; transform: translateY(-50%);
+    color: #888; /* 회색 화살표 */
+    font-size: 4rem; /* 크기 키움 */
+    cursor: pointer; z-index: 10001;
+    padding: 20px;
+    user-select: none;
+    transition: color 0.3s, transform 0.2s;
+}
+.modal-nav:hover { color: #fff; transform: translateY(-50%) scale(1.1); }
+.prev-btn { left: 20px; }
+.next-btn { right: 20px; }
+
+/* =========================================
+   [중요] 모바일 미디어 쿼리 제거 
+   (데스크톱 뷰 그대로 보여주기 위함)
+   ========================================= */
+/* 기존의 @media (max-width: 768px) {...} 블록을 완전히 제거했습니다. 
+   이제 모바일에서도 위의 PC 스타일이 그대로 적용되며, 
+   HTML의 viewport meta tag에 의해 축소되어 보입니다. */
