@@ -1,7 +1,7 @@
 gsap.registerPlugin(ScrollTrigger);
 
-// 네비게이션용 변수
-let allGalleryItems = []; 
+// 섹션별 네비게이션을 위한 변수
+let currentGalleryItems = []; 
 let currentItemIndex = 0;
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
         initSkills();
         initModal();
         initVRBackground();
+        initBackToTop(); // [New] 탑 버튼
         ScrollTrigger.refresh();
     };
 });
@@ -51,10 +52,11 @@ function animateDeck(sectionId, cardSelector) {
         trigger: section, start: 'top top', end: '+=1500', pin: true, scrub: 1,
         onUpdate: (self) => {
             const progress = self.progress;
-            // 모바일 여부 상관없이 데스크톱 설정(넓은 부채꼴) 사용
-            const spreadFactor = 15; 
-            const xDistanceFactor = 100;
-            const yArchFactor = 20;
+            const isMobile = window.innerWidth <= 768;
+            // 모바일에서도 크고 넓게 보이도록 팩터 조정
+            const spreadFactor = isMobile ? 10 : 15; 
+            const xDistanceFactor = isMobile ? 60 : 100;
+            const yArchFactor = isMobile ? 15 : 20;
             const spread = spreadFactor * totalCards * progress;
             const startAngle = -spread / 2;
 
@@ -94,7 +96,7 @@ function initSkills() {
     });
 }
 
-// 5. Modal Logic (Arrows & Navigation)
+// 5. Modal Logic (Section Specific Navigation)
 function initModal() {
     const modal = document.getElementById('media-modal');
     const modalImg = modal.querySelector('.modal-image');
@@ -103,35 +105,45 @@ function initModal() {
     const prevBtn = modal.querySelector('.prev-btn');
     const nextBtn = modal.querySelector('.next-btn');
 
-    // 모든 카드 아이템 수집
     const allCards = document.querySelectorAll('.card');
     
-    allCards.forEach((card, index) => {
-        const isVideo = card.classList.contains('video-card');
-        let src = '';
-        if (isVideo) {
-            src = card.getAttribute('data-video');
-        } else {
-            src = card.getAttribute('data-image');
-            if (!src) {
-                const style = window.getComputedStyle(card);
-                src = style.backgroundImage.slice(5, -2).replace(/"/g, "");
-            }
-        }
-        allGalleryItems.push({ type: isVideo ? 'video' : 'image', src: src });
-
-        // 클릭 시 해당 인덱스로 열기
+    allCards.forEach((card) => {
         card.addEventListener('click', (e) => {
             e.stopPropagation();
-            currentItemIndex = index;
+            
+            // [중요] 클릭한 카드가 속한 섹션(Deck) 찾기
+            const parentDeck = card.closest('.card-deck');
+            if (!parentDeck) return;
+
+            // 해당 섹션 내의 카드들만 수집
+            const sectionCards = parentDeck.querySelectorAll('.card');
+            currentGalleryItems = [];
+            
+            sectionCards.forEach((item, index) => {
+                const isVideo = item.classList.contains('video-card');
+                let src = '';
+                if (isVideo) {
+                    src = item.getAttribute('data-video');
+                } else {
+                    src = item.getAttribute('data-image');
+                    if (!src) {
+                        const style = window.getComputedStyle(item);
+                        src = style.backgroundImage.slice(5, -2).replace(/"/g, "");
+                    }
+                }
+                currentGalleryItems.push({ type: isVideo ? 'video' : 'image', src: src });
+                
+                // 클릭한 카드의 인덱스 저장
+                if(item === card) currentItemIndex = index;
+            });
+
             updateModalContent();
             openModal();
         });
     });
 
-    // 모달 내용 업데이트
     function updateModalContent() {
-        const item = allGalleryItems[currentItemIndex];
+        const item = currentGalleryItems[currentItemIndex];
         if (item.type === 'image') {
             modalImg.style.display = 'block';
             modalVideo.style.display = 'none';
@@ -145,12 +157,10 @@ function initModal() {
         }
     }
 
-    // 화살표 클릭 이벤트
     function showNext(direction) {
         currentItemIndex += direction;
-        // 순환 (Loop)
-        if (currentItemIndex >= allGalleryItems.length) currentItemIndex = 0;
-        if (currentItemIndex < 0) currentItemIndex = allGalleryItems.length - 1;
+        if (currentItemIndex >= currentGalleryItems.length) currentItemIndex = 0;
+        if (currentItemIndex < 0) currentItemIndex = currentGalleryItems.length - 1;
         updateModalContent();
     }
 
@@ -180,7 +190,17 @@ function initModal() {
     window.addEventListener("popstate", () => closeModal());
 }
 
-// 6. VR Background
+// 6. Back To Top Button
+function initBackToTop() {
+    const btn = document.getElementById('back-to-top');
+    if(btn) {
+        btn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
+}
+
+// 7. VR Background
 function initVRBackground() {
     const container = document.getElementById('vr-background');
     if (!container) return;
